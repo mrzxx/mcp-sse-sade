@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "filika": {
+      "command": "npx",
+      "args": [
+        "@modelcontextprotocol/server-everything"
+      ],
+      "env": {
+        "MCP_SERVER_URL": "http://localhost:3000/sse"
+      }
+    }
+  }
+} 

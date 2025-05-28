@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "filika": {
+      "command": "node",
+      "args": [
+        "/Users/alibugatekin/Desktop/express-mcp-sse-server/dist/index.js"
+      ],
+      "env": {
+        "FILIKA_TOKEN": "your_actual_filika_token_here"
+      }
+    }
+  }
+} 

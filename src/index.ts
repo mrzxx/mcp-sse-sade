@@ -1,20 +1,24 @@
-import { mcpServer } from "./mcp-server.js";
+import { mcpServer, setFilikaToken } from "./mcp-server.js";
 import { createSSEServer } from "./sse-server.js";
+
+// Environment variable'dan token'ı oku
+const filikaToken = process.env.FILIKA_TOKEN;
+
+if (filikaToken) {
+  setFilikaToken(filikaToken);
+  console.log("Filika token ayarlandı.");
+} else {
+  console.warn("FILIKA_TOKEN environment variable bulunamadı. Toollar çalışmayabilir.");
+}
 
 const sseServer = createSSEServer(mcpServer);
 
-const PORT = process.env.PORT || 3000;
-
 console.log("MCP Server başlatılıyor...");
-sseServer.listen(PORT, () => {
-  console.log(`MCP Server ${PORT} portunda çalışıyor`);
-  console.log(`SSE Endpoint: http://localhost:${PORT}/sse?token=YOUR_TOKEN`);
-  console.log(`Health Check: http://localhost:${PORT}/health`);
+sseServer.listen(3000, () => {
+  console.log("MCP Server 3000 portunda çalışıyor");
   console.log("Mevcut toollar:");
   console.log("- filika_get-wage-codes: Maaş kodlarını getirir");
   console.log("- filika_calculate-payroll: Bordro hesaplar");
   console.log("- filika_calculate-severance: Kıdem tazminatı hesaplar");
   console.log("- filika_get-employee-list: Çalışan listesi getirir");
-  console.log("\nToken URL parametresi olarak gönderilmelidir:");
-  console.log("Örnek: /sse?token=your_filika_token_here");
 });

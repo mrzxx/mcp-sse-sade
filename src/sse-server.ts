@@ -1,6 +1,7 @@
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { SSEServerTransport } from "@modelcontextprotocol/sdk/server/sse.js";
 import express from "express";
+import { setFilikaToken } from "./mcp-server.js";
 
 export function createSSEServer(mcpServer: McpServer) {
   const app = express();
@@ -8,6 +9,17 @@ export function createSSEServer(mcpServer: McpServer) {
   const transportMap = new Map<string, SSEServerTransport>();
 
   app.get("/sse", async (req, res) => {
+    const token = req.query.token as string;
+    console.log("Token here:", token);
+    if (!token) {
+      console.error('Connection attempt without token');
+      res.status(401).json({ error: 'Token is required' });
+      return;
+    }
+
+    // Token'ı Filika servisine ayarla
+    setFilikaToken(token);
+
     const transport = new SSEServerTransport("/messages", res);
     transportMap.set(transport.sessionId, transport);
     await mcpServer.connect(transport);

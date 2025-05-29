@@ -63,6 +63,7 @@ export interface SeveranceResponse {
 }
 
 export interface EmployeeListRequest {
+  integration_id: "current-list-report";
   month: string;
 }
 
@@ -116,12 +117,7 @@ export class FilikaService {
 
   async getEmployeeList(request: EmployeeListRequest): Promise<EmployeeListResponse> {
     try {
-      const response = await this.api.post(`/integrations/outbound`, {
-        params: {
-          integration_id: "current-list-report",
-          month: request.month
-        }
-      });
+      const response = await this.api.post('/integrations/outbound', request);
       return response.data;
     } catch (error) {
       throw new Error(`Çalışan listesi alınırken hata oluştu: ${error}`);

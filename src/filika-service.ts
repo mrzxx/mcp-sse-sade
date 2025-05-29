@@ -62,6 +62,11 @@ export interface SeveranceResponse {
   day: number;
 }
 
+export interface EmployeeListResponse {
+  headers: any;
+  rows: any;
+}
+
 export class FilikaService {
   private api: AxiosInstance;
   private token: string;
@@ -104,9 +109,20 @@ export class FilikaService {
     }
   }
 
-  async getEmployeeList(month: string): Promise<any> {
+  /**
+   * Çalışan listesini getirir
+   * @param integration_id Entegrasyon ID'si (sabit değer: "current-list-report")
+   * @param month Rapor ayı (YYYY-MM formatında)
+   * @returns Çalışan listesi
+   */
+  async getEmployeeList(integration_id: string, month: string): Promise<EmployeeListResponse> {
     try {
-      const response = await this.api.get(`/employees?month=${month}`);
+      const response = await this.api.get(`/integrations/outbound`, {
+        params: {
+          integration_id,
+          month
+        }
+      });
       return response.data;
     } catch (error) {
       throw new Error(`Çalışan listesi alınırken hata oluştu: ${error}`);

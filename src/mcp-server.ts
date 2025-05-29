@@ -173,7 +173,7 @@ mcpServer.tool(
     }
 
     try {
-      const result = await filikaService.getEmployeeList(args.month);
+      const result = await filikaService.getEmployeeList("current-list-report", args.month);
       return {
         content: [
           {

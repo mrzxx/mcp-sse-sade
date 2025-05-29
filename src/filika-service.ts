@@ -63,7 +63,7 @@ export interface SeveranceResponse {
 }
 
 export interface EmployeeListRequest {
-  integration_id: "current-list-report";
+  integration_id: string;
   month: string;
 }
 

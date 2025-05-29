@@ -174,6 +174,7 @@ mcpServer.tool(
 
     try {
       const request = {
+        integration_id: "current-list-report",
         month: args.month
       };
       

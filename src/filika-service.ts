@@ -62,6 +62,10 @@ export interface SeveranceResponse {
   day: number;
 }
 
+export interface EmployeeListRequest {
+  month: string;
+}
+
 export interface EmployeeListResponse {
   headers: any;
   rows: any;
@@ -109,18 +113,13 @@ export class FilikaService {
     }
   }
 
-  /**
-   * Çalışan listesini getirir
-   * @param integration_id Entegrasyon ID'si (sabit değer: "current-list-report")
-   * @param month Rapor ayı (YYYY-MM formatında)
-   * @returns Çalışan listesi
-   */
-  async getEmployeeList(integration_id: string, month: string): Promise<EmployeeListResponse> {
+
+  async getEmployeeList(request: EmployeeListRequest): Promise<EmployeeListResponse> {
     try {
-      const response = await this.api.get(`/integrations/outbound`, {
+      const response = await this.api.post(`/integrations/outbound`, {
         params: {
-          integration_id,
-          month
+          integration_id: "current-list-report",
+          month: request.month
         }
       });
       return response.data;

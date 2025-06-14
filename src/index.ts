@@ -14,8 +14,8 @@ if (filikaToken) {
 const sseServer = createSSEServer(mcpServer);
 
 console.log("MCP Server başlatılıyor...");
-sseServer.listen(3000, () => {
-  console.log("MCP Server 3000 portunda çalışıyor.......");
+sseServer.listen(3010, () => {
+  console.log("MCP Server 3010 portunda çalışıyor.......");
   console.log("Mevcut toollar:");
   console.log("- filika_get-wage-codes: Maaş kodlarını getirir");
   console.log("- filika_calculate-payroll: Bordro hesaplar");
